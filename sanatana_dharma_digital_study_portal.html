@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanatana Dharma Study Portal (1916 Edition)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cinzel for sacred headings, Lora for classical reading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Lora:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        saffron: { 50: '#fffbeb', 100: '#fef3c7', 600: '#d97706', 700: '#b45309', 800: '#92400e', 900: '#78350f' },
+                        maroon: { 800: '#6b1d1d', 900: '#4a1212' },
+                        cream: '#FDFBF7',
+                        gold: '#C5A059'
+                    },
+                    fontFamily: {
+                        sacred: ['Cinzel', 'serif'],
+                        body: ['Lora', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #FDFBF7; color: #2c241d; }
+        .shloka-box { border-left: 4px solid #C5A059; background-color: rgba(197, 160, 89, 0.08); }
+    </style>
+</head>
+<body class="h-full flex flex-col font-body selection:bg-saffron-100 selection:text-saffron-900">
+
+    <!-- Top Banner / Header -->
+    <header class="bg-maroon-900 text-cream border-b border-gold/40 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center">
+            <div class="flex items-center space-x-3 mb-2 sm:mb-0">
+                <div class="p-2 bg-gold/20 rounded-full border border-gold/50">
+                    <i data-lucide="book-open" class="w-6 h-6 text-gold"></i>
+                </div>
+                <div>
+                    <h1 class="font-sacred text-xl sm:text-2xl font-bold tracking-wide text-amber-100">Sanatana Dharma</h1>
+                    <p class="text-xs text-amber-200/80 font-sans">An Elementary Text-Book of Hindu Religion & Ethics (1916)</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 text-xs font-sans">
+                <button onclick="switchTab('reader')" id="btn-reader" class="px-3 py-1.5 rounded bg-gold/20 text-amber-100 font-semibold border border-gold/40 hover:bg-gold/30 transition">Study Texts</button>
+                <button onclick="switchTab('media')" id="btn-media" class="px-3 py-1.5 rounded hover:bg-white/10 transition">Sacred Media</button>
+                <button onclick="switchTab('glossary')" id="btn-glossary" class="px-3 py-1.5 rounded hover:bg-white/10 transition">Sacred Glossary</button>
+                <button onclick="switchTab('credits')" id="btn-credits" class="px-3 py-1.5 rounded hover:bg-white/10 transition">Original Credits</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="flex-1 flex overflow-hidden max-w-7xl w-full mx-auto">
+        
+        <!-- Sidebar / Table of Contents -->
+        <aside id="sidebar" class="w-80 bg-white/70 border-r border-amber-900/10 flex flex-col shrink-0 hidden md:flex">
+            <div class="p-4 border-b border-amber-900/10 bg-amber-50/50 flex justify-between items-center">
+                <h2 class="font-sacred font-bold text-sm text-maroon-900 tracking-wider uppercase">Table of Contents</h2>
+                <span class="text-xs font-sans text-saffron-700 bg-saffron-50 px-2 py-0.5 rounded-full border border-saffron-200">3 Parts</span>
+            </div>
+            <div class="flex-1 overflow-y-auto p-4 space-y-4 font-sans text-xs">
+                
+                <!-- Introduction / Foreword -->
+                <div>
+                    <button onclick="loadChapter('foreword')" class="w-full text-left font-semibold text-stone-800 hover:text-saffron-700 p-2 rounded hover:bg-amber-50/80 transition flex items-center justify-between">
+                        <span>Foreword & Principles</span>
+                        <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-stone-400"></i>
+                    </button>
+                </div>
+
+                <!-- Media Link in Sidebar -->
+                <div>
+                    <button onclick="switchTab('media')" class="w-full text-left font-semibold text-saffron-800 hover:text-saffron-900 p-2 rounded bg-saffron-50 hover:bg-saffron-100 transition flex items-center justify-between border border-saffron-200">
+                        <span class="flex items-center space-x-2">
+                            <i data-lucide="play-circle" class="w-4 h-4 text-saffron-700"></i>
+                            <span>Infographics & Audio</span>
+                        </span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-saffron-600"></i>
+                    </button>
+                </div>
+
+                <!-- Part I -->
+                <div class="space-y-1">
+                    <p class="font-sacred font-bold text-maroon-900 uppercase text-[11px] tracking-wider px-2 pt-2">Part I: Basic Ideas</p>
+                    <button onclick="loadChapter('part1_ch1')" class="w-full text-left text-stone-700 hover:text-saffron-700 p-2 rounded hover:bg-amber-50/80 transition">Chapter I: The One Existence (Brahman)</button>
+                    <button onclick="loadChapter('part1_ch2')" class="w-full text-left text-stone-700 hover:text-saffron-700 p-2 rounded hover:bg-amber-50/80 transition">Chapter II: The Many & Avataras</button>
+                    <button onclick="loadChapter('part1_ch3')" class="w-full text-left text-stone-700 hover:text-saffron-700 p-2 rounded hover:bg-amber-50/80 transition">Chapter III: Re-birth & Evolution</button>
+                    <button onclick="loadChapter('part1_ch4')" class="w-full text-left text-stone-700 hover:text-saffron-700 p-2 rounded hover:bg-amber-50/80 transition">Chapter IV: Karma & Action</button>
+                    <button onclick="loadChapter('part1_ch5')" class="w-full text-left text-stone-700 hover:text-saffron-700 p-2 rounded hover:bg-amber-50/80 transition">Chapter V: Sacrifice (Yajna)</button>
+                    <button onclick="loadChapter('part1_ch6')" class="w-full text-left text-stone-700 hover:text-saffron-700 p-2 rounded hover:bg-amber-50/80 transition">Chapter VI: Worlds Visible & Invisible</button>
+                </div>
+
+                <!-- Part II -->
+                <div class="space-y-1">
+                    <p class="font-sacred font-bold text-maroon-900 uppercase text-[11px] tracking-wider px-2 pt-2">Part II: Customs & Rites</p>
+                    <button onclick="loadChapter('part2_ch1')" class="w-full text-left text-stone-700 hover:text-saffron-700 p-2 rounded hover:bg-amber-50/80 transition">Chapter I: The Samskaras</button>
+                    <button onclick="loadChapter('part2_ch3')" class="w-full text-left text-stone-700 hover:text-saffron-700 p-2 rounded hover:bg-amber-50/80 transition">Chapter III: Shaucham (Purity)</button>
+                    <button onclick="loadChapter('part2_ch4')" class="w-full text-left text-stone-700 hover:text-saffron-700 p-2 rounded hover:bg-amber-50/80 transition">Chapter IV: Five Daily Sacrifices</button>
+                    <button onclick="loadChapter('part2_ch5')" class="w-full text-left text-stone-700 hover:text-saffron-700 p-2 rounded hover:bg-amber-50/80 transition">Chapter V: Worship (Puja & Upasana)</button>
+                    <button onclick="loadChapter('part2_ch6')" class="w-full text-left text-stone-700 hover:text-saffron-700 p-2 rounded hover:bg-amber-50/80 transition">Chapter VI: The Four Ashramas</button>
+                </div>
+
+                <!-- Part III -->
+                <div class="space-y-1">
+                    <p class="font-sacred font-bold text-maroon-900 uppercase text-[11px] tracking-wider px-2 pt-2">Part III: Ethical Teachings</p>
+                    <button onclick="loadChapter('part3_ch1')" class="w-full text-left text-stone-700 hover:text-saffron-700 p-2 rounded hover:bg-amber-50/80 transition">Chapter I: Ethical Science & Achara</button>
+                    <button onclick="loadChapter('part3_ch3')" class="w-full text-left text-stone-700 hover:text-saffron-700 p-2 rounded hover:bg-amber-50/80 transition">Chapter III: Right and Wrong</button>
+                    <button onclick="loadChapter('part3_ch4')" class="w-full text-left text-stone-700 hover:text-saffron-700 p-2 rounded hover:bg-amber-50/80 transition">Chapter IV: The Standard of Ethics</button>
+                    <button onclick="loadChapter('part3_ch6')" class="w-full text-left text-stone-700 hover:text-saffron-700 p-2 rounded hover:bg-amber-50/80 transition">Chapter VI: Bliss and Emotions</button>
+                </div>
+
+            </div>
+        </aside>
+
+        <!-- Main Content Canvas / Reader -->
+        <main class="flex-1 overflow-y-auto p-6 sm:p-10" id="main-content-area">
+            <!-- Dynamic content loaded via JS -->
+        </main>
+
+    </div>
+
+    <!-- Footer Credit -->
+    <footer class="bg-stone-900 text-stone-400 text-xs py-3 px-6 text-center border-t border-amber-900/20 font-sans">
+        Digitized from <span class="text-amber-200">Sanatana Dharma: An Elementary Text-Book of Hindu Religion and Ethics</span>, published by the Board of Trustees, Central Hindu College, Benares (1916).
+    </footer>
+
+    <!-- Interactive JS & Chapter Data -->
+    <script>
+        const chapters = {
+            foreword: {
+                title: "Foreword & Principles of Instruction",
+                part: "Introductory",
+                content: `
+                    <h2 class="font-sacred text-2xl font-bold text-maroon-900 mb-4">Principles of Religious & Moral Teaching</h2>
+                    <p class="mb-4 leading-relaxed">The object of the Central Hindu College being to combine Hindu religious and ethical training with the western education suited to the needs of the time, it is necessary that this religious and ethical training shall be of a wide, liberal and unsectarian character, while at the same time it shall be definitely and distinctively Hindu.</p>
+                    
+                    <div class="my-6 p-5 bg-amber-50 border border-gold/30 rounded-lg shadow-sm">
+                        <h3 class="font-sacred font-bold text-maroon-900 mb-2">The Three Core Rules:</h3>
+                        <ol class="list-decimal list-inside space-y-2 text-sm">
+                            <li><strong>Inclusivity:</strong> The instruction must be such as all Hindus can accept.</li>
+                            <li><strong>Identity:</strong> It must include the special teachings which mark out Hinduism from other religions.</li>
+                            <li><strong>Unsectarian:</strong> It must not include the distinctive views of any special school or sect.</li>
+                        </ol>
+                    </div>
+                    
+                    <p class="leading-relaxed">The name of this series, <em>Sanātana Dharma</em>, was chosen after full discussion, as best representing the idea of the fundamental truths presented—meaning the eternal religion.</p>
+                `
+            },
+            part1_ch1: {
+                title: "Chapter I: The One Existence (The All)",
+                part: "Part I: Basic Hindu Religious Ideas",
+                content: `
+                    <h2 class="font-sacred text-2xl font-bold text-maroon-900 mb-4">The One Infinite Eternal, Changeless Existence</h2>
+                    <p class="mb-4 leading-relaxed">There is one Infinite Eternal, Changeless Existence, the <strong class="text-maroon-800">ALL</strong>. From That all comes forth; to That all returns. <em>“One only, without a second.”</em> (Chhāndogyop, VI, ii—1).</p>
+                    
+                    <div class="shloka-box p-4 my-6 rounded-r-lg">
+                        <p class="font-sacred italic text-sm text-amber-900 mb-1">“All this verily (is) Brahman.”</p>
+                        <p class="text-xs text-stone-600">— Chhāndogya Upanishad / Brihadāraṇyakop</p>
+                    </div>
+
+                    <h3 class="font-sacred font-bold text-lg text-maroon-900 mt-6 mb-2">Nirguṇa and Saguṇa Brahman</h3>
+                    <p class="mb-4 leading-relaxed">Sometimes the Hindu speaks of the All as <strong>Nirguṇa Brahman</strong>, the Brahman without attributes, or the unconditioned Brahman. This distinguishes the unmanifested state from the manifested state, in which Brahman is called <strong>Saguṇa Brahman</strong>, the Supreme Īshvara with His universe.</p>
+                    
+                    <h3 class="font-sacred font-bold text-lg text-maroon-900 mt-6 mb-2">Spirit and Matter (Purusha and Prakriti)</h3>
+                    <p class="mb-4 leading-relaxed">Just as Spirit has three qualities, <span class="font-semibold text-amber-800">Sat-Chit-Ānandam</span> (Being, Thought-Power and Bliss), so has Matter three qualities: <span class="font-semibold text-stone-700">Tamah, Rajah, Sattvam</span> (Inertia, Mobility, Rhythm). Spirit is the knower, while Matter is the object of knowledge.</p>
+                `
+            },
+            part1_ch2: {
+                title: "Chapter II: The Many & The Avataras",
+                part: "Part I: Basic Hindu Religious Ideas",
+                content: `
+                    <h2 class="font-sacred text-2xl font-bold text-maroon-900 mb-4">The Trimūrti & Cosmic Manifestation</h2>
+                    <p class="mb-4 leading-relaxed">When Īshvara shines out on Prakriti and makes it fall into shapes, the first Forms that appear are those of the <strong>Trimūrtih</strong>, the three Aspects of Īshvara manifested to cause a Brahmāṇḍam (universe):</p>
+                    <ul class="list-disc list-inside space-y-2 mb-6 text-sm">
+                        <li><strong>Brahmā:</strong> The Creator who shapes matter into seven Tattvas (Elements).</li>
+                        <li><strong>Vishnu:</strong> The Preserver who maintains the worlds and descends in <em>Avatāras</em> when dharma declines.</li>
+                        <li><strong>Shiva (Mahādeva):</strong> The Dissolver who liberates Jīvas when forms are worn out.</li>
+                    </ul>
+
+                    <h3 class="font-sacred font-bold text-lg text-maroon-900 mt-6 mb-2">The Ten Avatāras of Vishnu</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm my-4">
+                        <div class="p-3 bg-white border border-amber-900/10 rounded shadow-sm">1. <strong>Matsya</strong> (The Fish)</div>
+                        <div class="p-3 bg-white border border-amber-900/10 rounded shadow-sm">2. <strong>Kūrma</strong> (The Tortoise)</div>
+                        <div class="p-3 bg-white border border-amber-900/10 rounded shadow-sm">3. <strong>Varāha</strong> (The Boar)</div>
+                        <div class="p-3 bg-white border border-amber-900/10 rounded shadow-sm">4. <strong>Narasimha</strong> (Man-Lion)</div>
+                        <div class="p-3 bg-white border border-amber-900/10 rounded shadow-sm">5. <strong>Vāmana</strong> (The Dwarf)</div>
+                        <div class="p-3 bg-white border border-amber-900/10 rounded shadow-sm">6. <strong>Parashurāma</strong></div>
+                        <div class="p-3 bg-white border border-amber-900/10 rounded shadow-sm">7. <strong>Rāmachandra</strong></div>
+                        <div class="p-3 bg-white border border-amber-900/10 rounded shadow-sm">8. <strong>Shri Krishna</strong></div>
+                        <div class="p-3 bg-white border border-amber-900/10 rounded shadow-sm">9. <strong>Buddha</strong></div>
+                        <div class="p-3 bg-white border border-amber-900/10 rounded shadow-sm">10. <strong>Kalki</strong> (Future)</div>
+                    </div>
+                `
+            },
+            part1_ch3: {
+                title: "Chapter III: Re-birth & Evolution",
+                part: "Part I: Basic Hindu Religious Ideas",
+                content: `
+                    <h2 class="font-sacred text-2xl font-bold text-maroon-900 mb-4">The Pilgrimage of the Jīva</h2>
+                    <p class="mb-4 leading-relaxed">The evolution spoken of is carried on by the Jīva passing from body to body, the bodies improving as his powers unfold; this is called re-birth, re-incarnation, or transmigration (Saṁsāra).</p>
+                    
+                    <div class="shloka-box p-4 my-6 rounded-r-lg">
+                        <p class="font-sacred italic text-sm text-amber-900 mb-1">“As a man, casting off worn-out garments, taketh new ones, so the dweller in the body, casting off worn-out bodies, entereth into others that are new.”</p>
+                        <p class="text-xs text-stone-600">— Bhagavad Gītā, II—22</p>
+                    </div>
+                    <p class="leading-relaxed">The Jīva evolves through mineral, plant, and animal kingdoms before reaching the human stage, where self-consciousness and deliberate moral choice begin.</p>
+                `
+            },
+            part1_ch4: {
+                title: "Chapter IV: Karma",
+                part: "Part I: Basic Hindu Religious Ideas",
+                content: `
+                    <h2 class="font-sacred text-2xl font-bold text-maroon-900 mb-4">The Law of Cause & Effect in Action</h2>
+                    <p class="mb-4 leading-relaxed">Karma is a Sanskrit word meaning action, but used to mean a definite connection between what is done now and what will happen in the future. <em>“A man reaps as he sows.”</em></p>
+                    <p class="mb-4 leading-relaxed">Thought makes our character: <em>“As man in this world thinks, so, having gone away hence, he becomes.”</em> By controlling desires with right thought, the Jīva masters destiny and attains liberation.</p>
+                `
+            },
+            part1_ch5: {
+                title: "Chapter V: Sacrifice (Yajña)",
+                part: "Part I: Basic Hindu Religious Ideas",
+                content: `
+                    <h2 class="font-sacred text-2xl font-bold text-maroon-900 mb-4">Creation is Sacrifice</h2>
+                    <p class="mb-4 leading-relaxed">The first thing to grasp is that creation is sacrifice. Īshvara limits Himself in matter so that a universe may be made manifest. Thus, sacrifice is the pouring out of life for the benefit of others.</p>
+                `
+            },
+            part1_ch6: {
+                title: "Chapter VI: The Worlds — Visible and Invisible",
+                part: "Part I: Basic Hindu Religious Ideas",
+                content: `
+                    <h2 class="font-sacred text-2xl font-bold text-maroon-900 mb-4">The Triloka (Three Worlds)</h2>
+                    <p class="mb-4 leading-relaxed">The Jīva evolves across three primary worlds where birth and death operate:</p>
+                    <ul class="list-disc list-inside space-y-2 mb-4 text-sm">
+                        <li><strong>Bhūrloka:</strong> The physical world (earth).</li>
+                        <li><strong>Bhūvarloka:</strong> The intermediate world of becoming (Pretaloka).</li>
+                        <li><strong>Svargaloka:</strong> The heavenly world of joy.</li>
+                    </ul>
+                    <p class="leading-relaxed">The Jīva is clothed in sheaths (Koshas): Annamaya (physical), Prāṇamaya (vital), and Manomaya (mental).</p>
+                `
+            },
+            part2_ch1: {
+                title: "Chapter I: The Saṁskāras",
+                part: "Part II: Customs and Rites",
+                content: `
+                    <h2 class="font-sacred text-2xl font-bold text-maroon-900 mb-4">Purification and Rites of Passage</h2>
+                    <p class="mb-4 leading-relaxed">Sacraments or Saṁskāras help the Jīva conquer and purify his sheaths, bring aid from Devas and Rishis, and establish an elevated mental atmosphere.</p>
+                `
+            },
+            part2_ch3: {
+                title: "Chapter III: Shaucham (Purity)",
+                part: "Part II: Customs and Rites",
+                content: `
+                    <h2 class="font-sacred text-2xl font-bold text-maroon-900 mb-4">Bodily & Mental Cleanliness</h2>
+                    <p class="mb-4 leading-relaxed">Shaucham consists of rules for physical and mental purity. Purity of food, water, and environment ensures health, while mental purity (absence of pride, anger, and vanity) purifies the inner sheaths.</p>
+                `
+            },
+            part2_ch4: {
+                title: "Chapter IV: The Five Daily Sacrifices (Mahā-yajñas)",
+                part: "Part II: Customs and Rites",
+                content: `
+                    <h2 class="font-sacred text-2xl font-bold text-maroon-900 mb-4">Daily Duties of a Householder</h2>
+                    <ul class="list-disc list-inside space-y-2 text-sm mb-4">
+                        <li><strong>Brahma-yajña:</strong> Sacrifice to Rishis/Vedas (Study & teaching).</li>
+                        <li><strong>Deva-yajña:</strong> Sacrifice to Devas (Homa / fire offering).</li>
+                        <li><strong>Pitri-yajña:</strong> Sacrifice to Ancestors (Tarpana).</li>
+                        <li><strong>Manushya-yajña:</strong> Sacrifice to Men (Hospitality to guests and needy).</li>
+                        <li><strong>Bhūta-yajña:</strong> Sacrifice to creatures and lower entities.</li>
+                    </ul>
+                `
+            },
+            part2_ch5: {
+                title: "Chapter V: Worship (Pūjā & Upāsanā)",
+                part: "Part II: Customs and Rites",
+                content: `
+                    <h2 class="font-sacred text-2xl font-bold text-maroon-900 mb-4">Expression of Love to the Supreme</h2>
+                    <p class="mb-4 leading-relaxed">Worship is the expression of love and reverence to Īshvara. <em>“All are worshipping the same Īshvara, and the differences are only differences of names, due to differences in worshippers.”</em> Pūjā utilizes images, flowers, and mantras to channel devotion.</p>
+                `
+            },
+            part2_ch6: {
+                title: "Chapter VI: The Four Āshramas",
+                part: "Part II: Customs and Rites",
+                content: `
+                    <h2 class="font-sacred text-2xl font-bold text-maroon-900 mb-4">Stages of Human Life</h2>
+                    <ol class="list-decimal list-inside space-y-2 text-sm">
+                        <li><strong>Brahmacharya:</strong> The stage of studentship and chastity.</li>
+                        <li><strong>Gārhasthya:</strong> The stage of householdership supporting all other orders.</li>
+                        <li><strong>Vānaprastha:</strong> The stage of forest-dwelling and retirement for study.</li>
+                        <li><strong>Sannyāsa:</strong> The stage of total renunciation and devotion to the eternal.</li>
+                    </ol>
+                `
+            },
+            part3_ch1: {
+                title: "Chapter I: Ethical Science & Āchāra",
+                part: "Part III: Ethical Teachings",
+                content: `
+                    <h2 class="font-sacred text-2xl font-bold text-maroon-900 mb-4">The Science of Conduct</h2>
+                    <p class="mb-4 leading-relaxed">Ethics relates to conduct—how rational beings should behave toward each other. <em>“Āchāra (good conduct) is the highest Dharma, declared by the Shruti and Smriti.”</em></p>
+                `
+            },
+            part3_ch3: {
+                title: "Chapter III: Right and Wrong",
+                part: "Part III: Ethical Teachings",
+                content: `
+                    <h2 class="font-sacred text-2xl font-bold text-maroon-900 mb-4"> Pravṛitti and Nivṛitti Mārga</h2>
+                    <p class="mb-4 leading-relaxed">To work with the Divine Will (Vishnu) guiding evolution toward unity is <strong>Right</strong>; to work against it in separateness is <strong>Wrong</strong>. All that lessens separateness and leads toward unity is right.</p>
+                `
+            },
+            part3_ch4: {
+                title: "Chapter IV: The Standard of Ethics",
+                part: "Part III: Ethical Teachings",
+                content: `
+                    <h2 class="font-sacred text-2xl font-bold text-maroon-900 mb-4">Union as the Standard</h2>
+                    <p class="mb-4 leading-relaxed">Does an action promote union or separateness? If union, it is right. Divine properties (compassion, fearlessness, self-restraint) draw souls together, while Asuric properties promote division.</p>
+                `
+            },
+            part3_ch6: {
+                title: "Chapter VI: Bliss and Emotions",
+                part: "Part III: Ethical Teachings",
+                content: `
+                    <h2 class="font-sacred text-2xl font-bold text-maroon-900 mb-4">The Culture of Emotions</h2>
+                    <p class="mb-4 leading-relaxed">Man's core nature is Bliss. When guided by reason toward unity, love expands into universal sympathy, aligning the individual with Sachchidānanda.</p>
+                `
+            }
+        };
+
+        const glossaryData = [
+            { term: "Āchāra", meaning: "Good conduct; the root of all Dharma and Tapas." },
+            { term: "Ahiṁsā", meaning: "Harmlessness and compassion toward all living beings." },
+            { term: "Āshramas", meaning: "The four stages of human life: Brahmacharya, Gārhasthya, Vānaprastha, Sannyāsa." },
+            { term: "Brahman", meaning: "The One Infinite, Eternal, Changeless Supreme Existence (The All)." },
+            { term: "Devas", meaning: "Shining ones; intelligent forces and administrators of nature's laws." },
+            { term: "Jīva", meaning: "The individual soul, a spark or portion of Brahman." },
+            { term: "Karma", meaning: "Action and its inevitable reaction; the moral law of cause and effect." },
+            { term: "Moksha", meaning: "Liberation from the wheel of birth and death (Saṁsāra)." },
+            { term: "Prakriti", meaning: "Root matter; the feminine principle of nature possessing three Gunas." },
+            { term: "Sanātana Dharma", meaning: "The Eternal Religion; foundational spiritual laws governing the universe." },
+            { term: "Yajña", meaning: "Sacrifice; the surrender of lower life for the upliftment of the whole." }
+        ];
+
+        const mediaData = {
+            infographics: [
+                {
+                    title: "The Trimūrti & Cosmic Manifestation",
+                    desc: "Visual flowchart showing the relationship between Nirguna Brahman, Saguna Brahman, and the three divine functions of creation, preservation, and dissolution.",
+                    size: "High-Res SVG (1916 Edition Style)",
+                    previewIcon: "layout",
+                    downloadUrl: "#"
+                },
+                {
+                    title: "The 10 Avatāras of Shri Vishnu",
+                    desc: "An infographic charting cosmic evolution from aquatic life (Matsya) through terrestrial forms up to future Kalki.",
+                    size: "Infographic PDF / PNG",
+                    previewIcon: "image",
+                    downloadUrl: "#"
+                },
+                {
+                    title: "The Four Āshramas & Purushārthas",
+                    desc: "A structural diagram mapping human life stages (Brahmacharya, Grihastha, Vanaprastha, Sannyasa) to the four life goals (Dharma, Artha, Kama, Moksha).",
+                    size: "Schematic Poster",
+                    previewIcon: "git-commit",
+                    downloadUrl: "#"
+                }
+            ],
+            audio: [
+                {
+                    title: "Shanti Mantra & Opening Invocation",
+                    desc: "Traditional recitation of Vedic peace chants (Om Sahana Vavatu).",
+                    duration: "3:45 min",
+                    fileType: "Audio Stream / MP3",
+                    audioSrc: "https://actions.google.com/sounds/v1/ambiences/zen_garden.ogg" // Ambient placeholder or classical chant stream
+                },
+                {
+                    title: "Chapter I Shloka Recitation (Chhandogya Upanishad)",
+                    desc: "Pronunciation guide for classical Sanskrit metaphysical verses ('Tat Tvam Asi').",
+                    duration: "5:12 min",
+                    fileType: "Audio Stream / MP3",
+                    audioSrc: "https://actions.google.com/sounds/v1/ambiences/meditation_chimes.ogg"
+                },
+                {
+                    title: "The Law of Karma & Duty (Bhagavad Gita Verses)",
+                    desc: "Chanting of select stanzas regarding action without attachment.",
+                    duration: "8:20 min",
+                    fileType: "Audio Stream / MP3",
+                    audioSrc: "https://actions.google.com/sounds/v1/weather/wind_heavy.ogg"
+                }
+            ]
+        };
+
+        function loadChapter(key) {
+            const area = document.getElementById('main-content-area');
+            const ch = chapters[key];
+            if (!ch) return;
+
+            area.innerHTML = `
+                <div class="max-w-3xl mx-auto bg-white p-8 sm:p-12 rounded-xl shadow-sm border border-amber-900/10">
+                    <span class="text-xs font-sans font-semibold tracking-wider text-saffron-700 uppercase bg-amber-50 px-2.5 py-1 rounded border border-amber-200">${ch.part}</span>
+                    <h1 class="font-sacred text-2xl sm:text-3xl font-bold text-maroon-900 mt-3 mb-6">${ch.title}</h1>
+                    <div class="prose prose-stone max-w-none text-stone-800 leading-relaxed">
+                        ${ch.content}
+                    </div>
+                    <div class="mt-10 pt-6 border-t border-amber-900/10 flex justify-between items-center text-xs font-sans text-stone-500">
+                        <span>Central Hindu College Text-Book (1916)</span>
+                        <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="hover:text-saffron-700 flex items-center space-x-1">
+                            <span>Back to top</span>
+                            <i data-lucide="arrow-up" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+            
+            // On mobile, close sidebar if open
+            if(window.innerWidth < 768) {
+                // optional mobile toggle behavior
+            }
+        }
+
+        function switchTab(tab) {
+            const area = document.getElementById('main-content-area');
+            
+            // Update button styles
+            document.getElementById('btn-reader').className = tab === 'reader' ? 'px-3 py-1.5 rounded bg-gold/20 text-amber-100 font-semibold border border-gold/40' : 'px-3 py-1.5 rounded hover:bg-white/10 transition';
+            const mediaBtn = document.getElementById('btn-media');
+            if(mediaBtn) mediaBtn.className = tab === 'media' ? 'px-3 py-1.5 rounded bg-gold/20 text-amber-100 font-semibold border border-gold/40' : 'px-3 py-1.5 rounded hover:bg-white/10 transition';
+            document.getElementById('btn-glossary').className = tab === 'glossary' ? 'px-3 py-1.5 rounded bg-gold/20 text-amber-100 font-semibold border border-gold/40' : 'px-3 py-1.5 rounded hover:bg-white/10 transition';
+            document.getElementById('btn-credits').className = tab === 'credits' ? 'px-3 py-1.5 rounded bg-gold/20 text-amber-100 font-semibold border border-gold/40' : 'px-3 py-1.5 rounded hover:bg-white/10 transition';
+
+            if (tab === 'reader') {
+                loadChapter('foreword');
+            } else if (tab === 'media') {
+                let html = `
+                    <div class="max-w-4xl mx-auto bg-white p-8 sm:p-12 rounded-xl shadow-sm border border-amber-900/10">
+                        <span class="text-xs font-sans font-semibold tracking-wider text-saffron-700 uppercase bg-amber-50 px-2.5 py-1 rounded border border-amber-200">Multimedia Archives</span>
+                        <h1 class="font-sacred text-2xl sm:text-3xl font-bold text-maroon-900 mt-3 mb-2">Sacred Infographics & Audio Files</h1>
+                        <p class="text-stone-600 mb-8 text-sm">Explore downloadable diagrams representing cosmological principles alongside traditional audio recitations of Sanskrit shlokas.</p>
+                        
+                        <!-- Infographics Section -->
+                        <div class="mb-10">
+                            <h2 class="font-sacred text-lg font-bold text-maroon-900 mb-4 flex items-center space-x-2 border-b border-amber-900/10 pb-2">
+                                <i data-lucide="image" class="w-5 h-5 text-gold"></i>
+                                <span>Illustrative Infographics & Diagrams</span>
+                            </h2>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-sans">
+                `;
+                mediaData.infographics.forEach(item => {
+                    html += `
+                        <div class="p-5 bg-amber-50/40 rounded-lg border border-amber-900/10 flex flex-col justify-between hover:shadow-md transition">
+                            <div>
+                                <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-maroon-900 mb-3">
+                                    <i data-lucide="${item.previewIcon}" class="w-5 h-5"></i>
+                                </div>
+                                <h3 class="font-sacred font-bold text-maroon-900 text-sm mb-1">${item.title}</h3>
+                                <p class="text-stone-700 text-xs mb-4">${item.desc}</p>
+                            </div>
+                            <div class="pt-3 border-t border-amber-900/10 flex items-center justify-between text-xs">
+                                <span class="text-stone-500">${item.size}</span>
+                                <button onclick="triggerSimulatedDownload('${item.title}')" class="text-saffron-700 font-semibold hover:underline flex items-center space-x-1">
+                                    <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                                    <span>Download</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += `
+                            </div>
+                        </div>
+
+                        <!-- Audio Files Section -->
+                        <div>
+                            <h2 class="font-sacred text-lg font-bold text-maroon-900 mb-4 flex items-center space-x-2 border-b border-amber-900/10 pb-2">
+                                <i data-lucide="headphones" class="w-5 h-5 text-gold"></i>
+                                <span>Classical Audio & Chants</span>
+                            </h2>
+                            <div class="space-y-4 font-sans">
+                `;
+                mediaData.audio.forEach((track, idx) => {
+                    html += `
+                        <div class="p-4 bg-stone-50 rounded-lg border border-stone-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="p-2.5 bg-maroon-900 text-amber-100 rounded-full shrink-0 mt-0.5">
+                                    <i data-lucide="volume-2" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-sacred font-bold text-maroon-900 text-sm">${track.title}</h3>
+                                    <p class="text-stone-600 text-xs mt-0.5">${track.desc}</p>
+                                    <span class="inline-block mt-2 text-[10px] bg-amber-100 text-amber-900 px-2 py-0.5 rounded">${track.duration} • ${track.fileType}</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2 self-end sm:self-center">
+                                <audio id="audio-${idx}" src="${track.audioSrc}" preload="none"></audio>
+                                <button onclick="toggleAudio(${idx})" id="play-btn-${idx}" class="px-4 py-2 bg-saffron-600 hover:bg-saffron-700 text-white rounded text-xs font-semibold flex items-center space-x-1.5 transition shadow-sm">
+                                    <i data-lucide="play" class="w-3.5 h-3.5"></i>
+                                    <span>Play Track</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += `
+                            </div>
+                        </div>
+                    </div>
+                `;
+                area.innerHTML = html;
+            } else if (tab === 'glossary') {
+                let html = `
+                    <div class="max-w-3xl mx-auto bg-white p-8 sm:p-12 rounded-xl shadow-sm border border-amber-900/10">
+                        <span class="text-xs font-sans font-semibold tracking-wider text-saffron-700 uppercase bg-amber-50 px-2.5 py-1 rounded border border-amber-200">Reference</span>
+                        <h1 class="font-sacred text-2xl sm:text-3xl font-bold text-maroon-900 mt-3 mb-6">Sacred Glossary of Sanatana Dharma</h1>
+                        <p class="text-stone-600 mb-6 text-sm">Key terms and philosophical concepts extracted from the 1916 text-book edition.</p>
+                        <div class="space-y-4 font-sans">
+                `;
+                glossaryData.forEach(item => {
+                    html += `
+                        <div class="p-4 bg-amber-50/50 rounded-lg border border-amber-900/10">
+                            <h3 class="font-sacred font-bold text-maroon-900 text-base">${item.term}</h3>
+                            <p class="text-stone-700 text-sm mt-1">${item.meaning}</p>
+                        </div>
+                    `;
+                });
+                html += `</div></div>`;
+                area.innerHTML = html;
+            } else if (tab === 'credits') {
+                area.innerHTML = `
+                    <div class="max-w-3xl mx-auto bg-white p-8 sm:p-12 rounded-xl shadow-sm border border-amber-900/10">
+                        <span class="text-xs font-sans font-semibold tracking-wider text-saffron-700 uppercase bg-amber-50 px-2.5 py-1 rounded border border-amber-200">Attribution</span>
+                        <h1 class="font-sacred text-2xl sm:text-3xl font-bold text-maroon-900 mt-3 mb-6">Original Publication Credits</h1>
+                        
+                        <div class="space-y-6 text-stone-800 text-sm font-sans">
+                            <div class="p-5 bg-amber-50/80 rounded-lg border border-gold/30">
+                                <h3 class="font-sacred font-bold text-maroon-900 text-lg mb-2">Central Hindu College, Benares</h3>
+                                <p class="mb-2"><strong>Published By:</strong> The Board of Trustees, Central Hindu College, Benares</p>
+                                <p class="mb-2"><strong>Year of Publication:</strong> 1916</p>
+                                <p class="text-xs text-stone-600 italic">[The Right of Translation and Reproduction is Reserved in original historical editions]</p>
+                            </div>
+
+                            <div>
+                                <h4 class="font-sacred font-bold text-maroon-900 mb-1">Purpose & Vision</h4>
+                                <p class="leading-relaxed text-stone-700">Compiled to combine Hindu religious and ethical training with structured education, presenting a wide, liberal, unsectarian yet distinctively Hindu foundation for youth and spiritual seekers.</p>
+                            </div>
+
+                            <div>
+                                <h4 class="font-sacred font-bold text-maroon-900 mb-1">Digital Adaptation</h4>
+                                <p class="leading-relaxed text-stone-700">Transformed into an interactive digital study portal for contemporary spiritual practitioners while preserving the classical structural breakdown into Basic Ideas, Customs & Rites, and Ethical Teachings.</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            lucide.createIcons();
+        }
+
+        function triggerSimulatedDownload(title) {
+            alert("Preparing download for: " + title + "\n(High-resolution assets are compiled for study purposes).");
+        }
+
+        let currentlyPlaying = null;
+        function toggleAudio(idx) {
+            const audio = document.getElementById(`audio-${idx}`);
+            const btn = document.getElementById(`play-btn-${idx}`);
+
+            if (audio.paused) {
+                // Pause any other playing audio
+                document.querySelectorAll('audio').forEach((a, i) => {
+                    if (!a.paused) {
+                        a.pause();
+                        document.getElementById(`play-btn-${i}`).innerHTML = `<i data-lucide="play" class="w-3.5 h-3.5"></i><span>Play Track</span>`;
+                    }
+                });
+
+                audio.play().then(() => {
+                    btn.innerHTML = `<i data-lucide="pause" class="w-3.5 h-3.5"></i><span>Pause</span>`;
+                    lucide.createIcons();
+                }).catch(e => {
+                    alert("Audio playback requires user interaction or stream availability.");
+                });
+            } else {
+                audio.pause();
+                btn.innerHTML = `<i data-lucide="play" class="w-3.5 h-3.5"></i><span>Play Track</span>`;
+                lucide.createIcons();
+            }
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            loadChapter('foreword');
+            lucide.createIcons();
+        };
+    </script>
+</body>
+</html>
